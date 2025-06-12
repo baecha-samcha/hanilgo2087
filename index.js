@@ -1,19 +1,9 @@
-const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const express = require("express");
+const Unblocker = require("unblocker");
 const app = express();
 
-app.use('/yt', createProxyMiddleware({
-  target: 'https://www.youtube.com',
-  changeOrigin: true,
-  pathRewrite: { '^/yt': '' },
-}));
-
-app.use('/ig', createProxyMiddleware({
-  target: 'https://www.instagram.com',
-  changeOrigin: true,
-  pathRewrite: { '^/ig': '' },
-}));
+app.use(Unblocker({ prefix: "/proxy/" }));
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("Proxy server running");
+  console.log("Unblocker proxy server running");
 });
